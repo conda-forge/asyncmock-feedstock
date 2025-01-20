@@ -6,22 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/asyncmock-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/asyncmock-{{ version }}.tar.gz
   sha256: c251889d542e98fe5f7ece2b5b8643b7d62b50a5657d34a4cbce8a1d5170d750
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pytest-runner
     - setuptools >=38.3
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - mock
 
 test:
@@ -31,6 +31,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/timsavage/asyncmock
